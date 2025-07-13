@@ -110,7 +110,7 @@
 
 ---
 
-### 🏷️ `tag` *(Custom task labels)*
+### 🏷️ `tag` *(Custom task labels per workspace)*
 | Field         | Type         | Key                      |
 |---------------|--------------|---------------------------|
 | id            | UUID         | PK                        |

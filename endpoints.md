@@ -36,6 +36,13 @@ Este resumen cubre todos los endpoints identificados hasta ahora, organizados po
 * `PUT /{userId}` → Cambiar rol del usuario en el workspace
 * `DELETE /{userId}` → Quitar usuario del workspace
 
+### 🎨 Task Statuses (`/api/v1/workspaces/{workspaceId}/task-statuses`)
+
+* `GET /` → Listar todos los estados del workspace
+* `POST /` → Crear un nuevo estado de tarea
+* `PUT /{statusId}` → Editar nombre, color u orden del estado
+* `DELETE /{statusId}` → Desactivar o eliminar estado de tarea
+
 ---
 
 ### 📁 Projects (`/api/v1/projects`)
@@ -78,15 +85,18 @@ Este resumen cubre todos los endpoints identificados hasta ahora, organizados po
 * `DELETE /{userId}` → Quitar usuario
 * `GET /` → Ver usuarios asignados
 
-### 🏷️ Tags (`/api/v1/tags`)
+### 🏷️ Tags (`/api/v1/workspaces/{workspaceId}/tags`)
 
-* `POST /` → Crear etiqueta
-* `GET /` → Listar etiquetas
+* `POST /` → Crear etiqueta dentro del workspace
+* `GET /` → Listar etiquetas del workspace
 * `PUT /{id}` → Editar etiqueta
 * `DELETE /{id}` → Eliminar etiqueta
 
 ### 📌 Task Tags (`/api/v1/tasks/{taskId}/tags`)
 
+* `POST /` → Asignar etiqueta
+* `DELETE /{tagId}` → Quitar etiqueta
+* `GET /` → Listar etiquetas de una tarea (`/api/v1/tasks/{taskId}/tags`)
 * `POST /` → Asignar etiqueta
 * `DELETE /{tagId}` → Quitar etiqueta
 * `GET /` → Listar etiquetas de una tarea

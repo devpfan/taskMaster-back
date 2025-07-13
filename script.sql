@@ -63,13 +63,22 @@ CREATE TABLE task (
     task_list_id UUID REFERENCES task_list(id),
     name VARCHAR(200),
     description TEXT,
-    status VARCHAR(50),
+    status_id UUID REFERENCES task_status(id),
     priority VARCHAR(20),
     type VARCHAR(50),
     due_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     activation_date DATE,
     created_by UUID REFERENCES "user"(id)
+);
+
+CREATE TABLE task_status (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    workspace_id UUID NOT NULL REFERENCES workspace(id) ON DELETE CASCADE,
+    name VARCHAR(50) NOT NULL,
+    color VARCHAR(20),
+    is_active BOOLEAN DEFAULT TRUE,
+    order_index INT
 );
 
 -- Subtareas
@@ -90,11 +99,12 @@ CREATE TABLE task_user (
 );
 
 -- Etiquetas
-DROP TABLE IF EXISTS tag CASCADE;
 CREATE TABLE tag (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(50),
-    color VARCHAR(20)
+    workspace_id UUID NOT NULL REFERENCES workspace(id) ON DELETE CASCADE,
+    name VARCHAR(50) NOT NULL,
+    color VARCHAR(20),
+    UNIQUE(workspace_id, name)
 );
 
 -- Relación tarea-etiqueta
@@ -188,3 +198,10 @@ CREATE TABLE activity_log (
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE task
+DROP COLUMN status,
+ADD COLUMN status_id UUID REFERENCES task_status(id);
+
+ALTER TABLE tag
+ADD COLUMN workspace_id UUID REFERENCES workspace(id) ON DELETE CASCADE;

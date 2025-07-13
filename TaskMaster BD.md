@@ -64,21 +64,32 @@
 ---
 
 ### ✅ `task` *(Individual task)*
-| Field             | Type         | Key                |
-|------------------|--------------|--------------------|
-| id               | UUID         | PK                 |
-| task_list_id     | UUID         | FK → task_list(id) |
-| name             | VARCHAR(200) |                    |
-| description      | TEXT         |                    |
-| status           | VARCHAR(50)  |                    |
-| priority         | VARCHAR(20)  |                    |
-| type             | VARCHAR(50)  |                    |
-| due_date         | DATE         |                    |
-| created_at       | TIMESTAMP    |                    |
-| activation_date  | DATE         |                    |
-| created_by       | UUID         | FK → user(id)   |
+| Field             | Type         | Key                  |
+|------------------|--------------|----------------------|
+| id               | UUID         | PK                   |
+| task_list_id     | UUID         | FK → task_list(id)   |
+| name             | VARCHAR(200) |                      |
+| description      | TEXT         |                      |
+| status_id        | UUID         | FK → task_status(id) |
+| priority         | VARCHAR(20)  |                      |
+| type             | VARCHAR(50)  |                      |
+| due_date         | DATE         |                      |
+| created_at       | TIMESTAMP    |                      |
+| activation_date  | DATE         |                      |
+| created_by       | UUID         | FK → user(id)        |
+
 
 ---
+
+### 🎨 `task_status` *(Custom statuses per workspace)*
+| Field        | Type        | Key                   |
+|--------------|-------------|------------------------|
+| id           | UUID        | PK                     |
+| workspace_id | UUID        | FK → workspace(id)     |
+| name         | VARCHAR(50) |                        |
+| color        | VARCHAR(20) |                        |
+| is_active    | BOOLEAN     | DEFAULT TRUE           |
+| order_index  | INT         |                        |
 
 ### 🔄 `subtask` *(Dependent subtask)*
 | Field       | Type         | Key               |
@@ -100,11 +111,12 @@
 ---
 
 ### 🏷️ `tag` *(Custom task labels)*
-| Field  | Type         | Key |
-|--------|--------------|-----|
-| id     | UUID         | PK  |
-| name   | VARCHAR(50)  |     |
-| color  | VARCHAR(20)  |     |
+| Field         | Type         | Key                      |
+|---------------|--------------|---------------------------|
+| id            | UUID         | PK                        |
+| workspace_id  | UUID         | FK → workspace(id)       |
+| name          | VARCHAR(50)  |                           |
+| color         | VARCHAR(20)  |                           |
 
 ---
 
